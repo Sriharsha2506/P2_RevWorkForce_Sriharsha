@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Announcements</title>
+    <style>
+        body { font-family: Arial; background: #f4f6f9; }
+        .container {
+            width: 70%;
+            margin: 40px auto;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 0 8px #ddd;
+        }
+        .date {
+            color: gray;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Company Announcements</h2>
+
+    <div th:each="a : ${announcements}" class="card">
+        <h3 th:text="${a.title}"></h3>
+        <p th:text="${a.message}"></p>
+        <div class="date" th:text="${a.createdDate}"></div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manager Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 6px;
+            box-shadow: 0 0 6px #ccc;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        .review-btn {
+            padding: 6px 10px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Manager Dashboard</h2>
+
+    <a href="/leaves/pending" class="btn">View Pending Leaves</a>
+    <a href="/logout" class="btn">Logout</a>
+
+    <hr>
+
+    <!-- ================= EMPLOYEE SECTION ================= -->
+
+    <h3>Employees</h3>
+
+    <div th:if="${employees == null || #lists.isEmpty(employees)}">
+        <p>No employees available.</p>
+    </div>
+
+    <table th:if="${employees != null}">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="emp : ${employees}">
+            <td th:text="${emp.employeeId}"></td>
+            <td th:text="${emp.name}"></td>
+            <td th:text="${emp.email}"></td>
+            <td>
+                <a th:href="@{/manager/review/{id}(id=${emp.employeeId})}"
+                   class="review-btn">
+                    Give Review
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- ================= ANNOUNCEMENTS ================= -->
+
+    <h3>Latest Announcements</h3>
+
+    <div th:if="${announcements == null || #lists.isEmpty(announcements)}">
+        <p>No announcements available.</p>
+    </div>
+
+    <div th:each="a : ${announcements}" class="card">
+        <h4 th:text="${a.title}"></h4>
+        <p th:text="${a.message}"></p>
+        <small th:text="${a.createdDate}" style="color:gray;"></small>
+    </div>
+
+</div>
+
+</body>
+</html>

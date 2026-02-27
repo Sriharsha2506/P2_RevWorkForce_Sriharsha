@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            padding: 40px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-right: 10px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .blue { background: #2e86de; }
+        .green { background: #27ae60; }
+        .orange { background: #f39c12; }
+        .purple { background: #8e44ad; }
+        .red { background: #c0392b; }
+
+        .section-title {
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .date {
+            font-size: 12px;
+            color: gray;
+            margin-top: 10px;
+        }
+
+        .notification-unread {
+            border-left: 5px solid #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Employee Dashboard</h1>
+
+<!-- ACTION BUTTONS -->
+<a th:href="@{/leaves/apply}" class="btn blue">Apply Leave</a>
+<a th:href="@{/leaves/my}" class="btn green">My Leaves</a>
+<a th:href="@{/employees/reviews}" class="btn blue">My Performance Reviews</a>
+
+<!-- 🔥 GOAL BUTTONS -->
+<a th:href="@{/goals/form}" class="btn orange">Add Goal</a>
+<a th:href="@{/goals/my}" class="btn purple">My Goals</a>
+
+<a th:href="@{/logout}" class="btn red">Logout</a>
+
+<hr>
+
+<!-- 🔔 NOTIFICATIONS SECTION -->
+<h2 class="section-title">Notifications</h2>
+
+<div th:if="${#lists.isEmpty(notifications)}">
+    No notifications available.
+</div>
+
+<div th:each="notification : ${notifications}"
+     th:class="'card ' + (${notification.read} ? '' : 'notification-unread')">
+
+    <p th:text="${notification.message}"></p>
+    <div class="date" th:text="${notification.createdAt}"></div>
+
+</div>
+
+<hr>
+
+<!-- 📢 ANNOUNCEMENTS SECTION -->
+<h2 class="section-title">Latest Announcements</h2>
+
+<div th:if="${#lists.isEmpty(announcements)}">
+    No announcements available.
+</div>
+
+<div th:each="announcement : ${announcements}" class="card">
+    <h3 th:text="${announcement.title}"></h3>
+    <p th:text="${announcement.message}"></p>
+    <div class="date" th:text="${announcement.createdDate}"></div>
+</div>
+
+</body>
+</html>

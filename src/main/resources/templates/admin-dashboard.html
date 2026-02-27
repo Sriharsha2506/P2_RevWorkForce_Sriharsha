@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial; background:#f4f6f9; }
+
+        .container { width:80%; margin:30px auto; }
+
+        .stats { display:flex; gap:20px; flex-wrap:wrap; }
+
+        .card {
+            flex:1;
+            min-width:200px;
+            background:white;
+            padding:20px;
+            border-radius:6px;
+            box-shadow:0 0 6px #ccc;
+            text-align:center;
+        }
+
+        .card h2 { margin:0; color:#007bff; }
+
+        .section {
+            margin-top:40px;
+        }
+
+        .btn {
+            display:inline-block;
+            padding:10px 18px;
+            background:#007bff;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+            margin:10px 10px 0 0;
+        }
+
+        .btn-green { background:#28a745; }
+        .btn-orange { background:#fd7e14; }
+        .btn-red { background:#dc3545; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Admin Dashboard</h2>
+
+    <!-- Statistics Section -->
+    <div class="stats">
+
+        <div class="card">
+            <h3>Total Employees</h3>
+            <h2 th:text="${totalEmployees}"></h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Managers</h3>
+            <h2 th:text="${totalManagers}"></h2>
+        </div>
+
+        <div class="card">
+            <h3>Pending Leaves</h3>
+            <h2 th:text="${pendingLeaves}"></h2>
+        </div>
+
+        <div class="card">
+            <h3>Approved Leaves</h3>
+            <h2 th:text="${approvedLeaves}"></h2>
+        </div>
+
+        <div class="card">
+            <h3>Announcements</h3>
+            <h2 th:text="${totalAnnouncements}"></h2>
+        </div>
+
+    </div>
+
+    <!-- Employee Management Section -->
+    <div class="section">
+        <h3>Employee Management</h3>
+
+        <a href="/employees/list" class="btn btn-green">
+            View Employees
+        </a>
+
+        <a href="/employees/form" class="btn">
+            Add Employee
+        </a>
+    </div>
+
+    <!-- Announcement Section -->
+    <div class="section">
+        <h3>Announcements</h3>
+
+        <a href="/announcements/create" class="btn btn-orange">
+            Create Announcement
+        </a>
+    </div>
+
+    <!-- Logout -->
+    <div class="section">
+        <a href="/logout" class="btn btn-red">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

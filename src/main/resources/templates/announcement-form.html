@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Announcement</title>
+    <style>
+        body { font-family: Arial; background: #f4f6f9; }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Create Announcement</h2>
+
+    <form th:action="@{/announcements/save}" th:object="${announcement}" method="post">
+        <input type="text" th:field="*{title}" placeholder="Title" required/>
+        <textarea th:field="*{message}" placeholder="Message" required></textarea>
+        <button type="submit">Publish</button>
+    </form>
+</div>
+
+</body>
+</html>

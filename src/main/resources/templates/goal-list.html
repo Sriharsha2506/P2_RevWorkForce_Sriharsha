@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Goals</title>
+</head>
+<body>
+
+<h2>My Goals</h2>
+
+<table border="1">
+    <tr>
+        <th>Description</th>
+        <th>Deadline</th>
+        <th>Priority</th>
+        <th>Status</th>
+    </tr>
+
+    <tr th:each="g : ${goals}">
+        <td th:text="${g.description}"></td>
+        <td th:text="${g.deadline}"></td>
+        <td th:text="${g.priority}"></td>
+        <td th:text="${g.status}"></td>
+    </tr>
+</table>
+
+<a href="/employees/dashboard">Back to Dashboard</a>
+
+</body>
+</html>

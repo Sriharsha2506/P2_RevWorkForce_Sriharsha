@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Performance Reviews</title>
+</head>
+<body>
+
+<h2>My Performance Reviews</h2>
+
+<!-- If no reviews -->
+<div th:if="${reviews == null}">
+    <p>No reviews available.</p>
+</div>
+
+<div th:if="${reviews != null}">
+
+    <div th:if="${#lists.isEmpty(reviews)}">
+        <p>No reviews available.</p>
+    </div>
+
+    <table border="1" th:if="${!#lists.isEmpty(reviews)}">
+        <tr>
+            <th>Review Period</th>
+            <th>Rating</th>
+            <th>Comments</th>
+        </tr>
+
+        <tr th:each="r : ${reviews}">
+            <td th:text="${r.reviewPeriod}"></td>
+            <td th:text="${r.rating}"></td>
+            <td th:text="${r.comments}"></td>
+        </tr>
+    </table>
+
+</div>
+
+<br>
+<a href="/employees/dashboard">Back to Dashboard</a>
+
+</body>
+</html>
