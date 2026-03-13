@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Manage Holidays')}"></head>
+
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-container">
+        <header>
+            <h1>Holiday Management</h1>
+        </header>
+
+        <div class="grid-layout">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-calendar-alt"></i> Company Holidays</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="holiday : ${holidays}">
+                            <td style="font-weight: 600;" th:text="${holiday.holidayDate}">2024-01-01</td>
+                            <td th:text="${holiday.description}">New Year's Day</td>
+                            <td>
+                                <form th:action="@{/admin/leaves/holidays/delete/{id}(id=${holiday.holidayId})}"
+                                    method="post" onsubmit="return confirm('Are you sure?')">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(holidays)}">
+                            <td colspan="3" style="text-align: center; padding: 3rem; color: var(--text-muted);">No
+                                holidays scheduled.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card" style="height: fit-content;">
+                <h2 class="card-title"><i class="fas fa-calendar-plus"></i> Add New Holiday</h2>
+                <form th:action="@{/admin/leaves/holidays/save}" method="post" th:object="${newHoliday}">
+                    <div class="form-group">
+                        <label>Holiday Date</label>
+                        <input type="date" th:field="*{holidayDate}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" th:field="*{description}" placeholder="e.g. Independence Day" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Holiday</button>
+                </form>
+            </div>
+        </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Manager Login')}"></head>
+
+<body
+    style="background: #eff6ff; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-y: auto;">
+    <div style="width: 100%; max-width: 450px; padding: 2rem;">
+        <div
+            style="background: #ffffff; border-radius: 20px; padding: 3rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);">
+            <header style="text-align: center; margin-bottom: 2.5rem;">
+                <h1 style="color: #1e40af; font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem;">RevWorkForce</h1>
+                <p style="color: #64748b; font-size: 0.95rem;">Human Resource Management System</p>
+                <div style="margin-top: 1rem; color: #1e40af; font-weight: 600;">Manager Access</div>
+            </header>
+
+            <form th:action="@{/login}" method="post" autocomplete="off"
+                style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <input type="hidden" name="portalRole" th:value="${portalRole}">
+                <div th:if="${param.error}"
+                    style="background: #fef2f2; border: 1px solid #fecaca; color: #1e40af; padding: 1rem; border-radius: 12px; font-size: 0.85rem; text-align: center;">
+                    Invalid manager credentials.
+                </div>
+                <div th:if="${message}"
+                    style="background: #f0fdf4; border: 1px solid #dcfce7; color: #16a34a; padding: 1rem; border-radius: 12px; font-size: 0.85rem; text-align: center;">
+                    <span th:text="${message}"></span>
+                </div>
+
+                <div>
+                    <label
+                        style="display: block; color: #334155; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">Email</label>
+                    <input type="email" name="username" required placeholder="Enter your email" autocomplete="off"
+                        style="width: 100%; padding: 0.75rem 1rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; color: #1e293b; outline: none; transition: border-color 0.2s;">
+                </div>
+
+                <div style="position: relative;">
+                    <label
+                        style="display: block; color: #334155; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">Password</label>
+                    <input type="password" name="password" id="password" required placeholder="Enter your password"
+                        autocomplete="new-password"
+                        style="width: 100%; padding: 0.75rem 2.5rem 0.75rem 1rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; color: #1e293b; outline: none; transition: border-color 0.2s;">
+                    <i class="fas fa-eye" id="togglePassword"
+                        style="position: absolute; right: 1rem; top: 2.75rem; color: #64748b; cursor: pointer;"></i>
+                </div>
+
+                <div style="text-align: center; margin-top: -1rem;">
+                    <a th:href="@{/forgot-password}"
+                        style="color: #3b82f6; text-decoration: none; font-size: 0.85rem; font-weight: 500;">Forgot
+                        Password?</a>
+                </div>
+
+                <button type="submit"
+                    style="width: 100%; padding: 0.85rem; background: #3b82f6; border: none; border-radius: 8px; color: #ffffff; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; margin-top: 0.5rem;">
+                    Login
+                </button>
+
+                <div style="text-align: center; margin-top: 1rem;">
+                    <a href="/"
+                        style="color: #64748b; text-decoration: none; font-size: 0.875rem; transition: color 0.2s;">
+                        &copy; 2026 RevWorkForce HRM
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // Reversed logic: open eye (fa-eye) to HIDE, eye-slash to SHOW
+            if (type === 'password') {
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            } else {
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            }
+        });
+    </script>
+</body>
+
+</html>

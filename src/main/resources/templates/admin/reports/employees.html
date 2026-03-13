@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Employee Reports')}"></head>
+
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-container">
+        <header>
+            <h1>Employee Reports</h1>
+        </header>
+
+        <div class="card">
+            <form th:action="@{/admin/reports/employees}" method="get" class="filter-form">
+                <div class="form-group">
+                    <label>Department</label>
+                    <select name="departmentId">
+                        <option value="">All Departments</option>
+                        <option th:each="dept : ${departments}" th:value="${dept.departmentId}"
+                            th:text="${dept.departmentName}" th:selected="${dept.departmentId == selectedDept}">IT
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status">
+                        <option value="">All Statuses</option>
+                        <option value="Active" th:selected="${selectedStatus == 'Active'}">Active</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-filter"></i> Filter</button>
+            </form>
+
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Designation</th>
+                            <th>Manager</th>
+                            <th>Joining Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="report : ${reports}">
+                            <td th:text="${report.empId}">EMP001</td>
+                            <td th:text="${report.firstName + ' ' + report.lastName}">John Doe</td>
+                            <td th:text="${report.email}">john@example.com</td>
+                            <td th:text="${report.departmentName}">IT</td>
+                            <td th:text="${report.designationName}">Developer</td>
+                            <td th:text="${report.managerName}">Jane Smith</td>
+                            <td th:text="${report.joiningDate}">2023-01-01</td>
+                            <td><span th:text="${report.status}">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+</body>
+
+</html>
